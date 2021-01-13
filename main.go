@@ -8,12 +8,15 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+var s3Config aws.Config
+
+func init() {
+	s3Config = aws.Config{Region: aws.String("ap-northeast-1")}
+}
+
 func main() {
 	// sessionの作成
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		Profile:           "di",
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+	sess := session.Must(session.NewSession(&s3Config))
 
 	bucketName := "xxx-bucket"
 	objectKey := "xxx-key"
